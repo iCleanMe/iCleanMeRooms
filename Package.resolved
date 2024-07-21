@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "icleanmesharedui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/iCleanMe/iCleanMeSharedUI.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "85d6fdca7a39d77a27f96bf54493c76b163b9e5c"
+      }
+    },
+    {
+      "identity" : "nnswiftuikit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nikolainobadi/NnSwiftUIKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3288d86af9d81b83671cecd027f985bc18c85129"
+      }
+    },
+    {
+      "identity" : "nntestkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nikolainobadi/NnTestKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "13edd95fa90c1a506f1a0ffa664324e743438912"
+      }
+    }
+  ],
+  "version" : 2
+}
