@@ -7,17 +7,14 @@
 
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
-public struct ReorderRoomListView: View {
+struct ReorderRoomListView: View {
+    #if canImport(UIKit)
     @State private var editing = EditMode.active
+    #endif
     @StateObject var viewModel: ReorderRoomListViewModel
     
-    public init(viewModel: ReorderRoomListViewModel) {
-        self._viewModel = .init(wrappedValue: viewModel)
-    }
-    
-    public var body: some View {
+    var body: some View {
         VStack {
             List {
                 Section {
@@ -31,7 +28,9 @@ public struct ReorderRoomListView: View {
                     }
                 }
             }
+            #if canImport(UIKit)
             .listStyle(.insetGrouped)
+            #endif
             .scrollContentBackground(.hidden)
             
             AsyncTryButton("Save Changes", action: viewModel.saveChanges)
@@ -39,7 +38,9 @@ public struct ReorderRoomListView: View {
         }
         .padding()
         .mainBackground()
+        #if canImport(UIKit)
         .environment(\.editMode, $editing)
+        #endif
     }
 }
 

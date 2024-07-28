@@ -7,9 +7,8 @@
 
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
-public struct SharedRoomRowView: View {
+struct SharedRoomRowView: View {
     let room: Room
     let gradientType: GradientType
     let onSelection: () -> Void
@@ -18,13 +17,13 @@ public struct SharedRoomRowView: View {
         return getHeightPercent(5.25)
     }
     
-    public init(room: Room, gradientType: GradientType = .seaNight, onSelection: @escaping () -> Void) {
+    init(room: Room, gradientType: GradientType = .seaNight, onSelection: @escaping () -> Void) {
         self.room = room
         self.gradientType = gradientType
         self.onSelection = onSelection
     }
     
-    public var body: some View {
+    var body: some View {
         HStack {
             Text(room.name)
                 .padding(2)

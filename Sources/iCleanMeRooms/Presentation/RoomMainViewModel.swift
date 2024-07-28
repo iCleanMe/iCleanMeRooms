@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RoomPresentation
 
 final class RoomMainViewModel: ObservableObject {
     @Published var navRoute: RoomListNavRoute?

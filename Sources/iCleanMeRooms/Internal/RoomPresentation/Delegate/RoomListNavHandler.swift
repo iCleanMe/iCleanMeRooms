@@ -5,9 +5,7 @@
 //  Created by Nikolai Nobadi on 7/12/24.
 //
 
-import iCleanMeRoomsCore
-
-public protocol RoomListNavHandler {
+protocol RoomListNavHandler {
     func showEditRoom(_ room: Room)
     func showDeleteRoom(_ room: Room)
     func showTasks(for room: Room)

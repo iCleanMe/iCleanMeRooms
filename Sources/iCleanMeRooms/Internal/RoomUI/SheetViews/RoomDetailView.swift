@@ -7,17 +7,12 @@
 
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
-public struct RoomDetailView: View {
+struct RoomDetailView: View {
     @FocusState private var fieldIsFocused: Bool
     @StateObject var viewModel: RoomDetailViewModel
     
-    public init(viewModel: RoomDetailViewModel) {
-        self._viewModel = .init(wrappedValue: viewModel)
-    }
-    
-    public var body: some View {
+    var body: some View {
         VStack(spacing: getHeightPercent(5)) {
             VStack(spacing: getHeightPercent(3)) {
                 Text(viewModel.title)

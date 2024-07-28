@@ -5,10 +5,8 @@
 //  Created by Nikolai Nobadi on 7/10/24.
 //
 
-import RoomUI
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
 public struct RoomMainView: View {
     @StateObject private var composer: RoomMainComposer
@@ -34,7 +32,9 @@ public struct RoomMainView: View {
                             ReorderRoomListView(viewModel: composer.makeReorderViewModel(section))
                         }
                     }
+                    #if canImport(UIKit)
                     .withNavBarDismissButton()
+                    #endif
                 }
                 .interactiveDismissDisabled()
             }

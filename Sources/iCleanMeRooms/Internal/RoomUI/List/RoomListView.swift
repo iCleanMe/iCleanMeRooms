@@ -7,16 +7,11 @@
 
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
-public struct RoomListView: View {
+struct RoomListView: View {
     @StateObject var viewModel: RoomListViewModel
     
-    public init(viewModel: RoomListViewModel) {
-        self._viewModel = .init(wrappedValue: viewModel)
-    }
-    
-    public var body: some View {
+    var body: some View {
         VStack {
             PlainRoomListView {
                 ForEach(viewModel.topSectionRooms) { room in

@@ -6,15 +6,14 @@
 //
 
 import Foundation
-import iCleanMeRoomsCore
 
-public final class RoomDetailViewModel: ObservableObject {
+final class RoomDetailViewModel: ObservableObject {
     @Published public var room: Room
     
     private let datasource: RoomDataSource
     private let delegate: RoomDetailDelegate
     
-    public init(room: Room, delegate: RoomDetailDelegate, datasource: RoomDataSource) {
+    init(room: Room, delegate: RoomDetailDelegate, datasource: RoomDataSource) {
         self.room = room
         self.delegate = delegate
         self.datasource = datasource
@@ -23,7 +22,7 @@ public final class RoomDetailViewModel: ObservableObject {
 
 
 // MARK: - DisplayData
-public extension RoomDetailViewModel {
+extension RoomDetailViewModel {
     var title: String {
         guard canAddRoom else {
             return "You've reached your house-room limit."
@@ -61,7 +60,7 @@ public extension RoomDetailViewModel {
 
 
 // MARK: - Actions
-public extension RoomDetailViewModel {
+extension RoomDetailViewModel {
     func saveRoom() async throws {
         if isNewRoom {
             try await delegate.saveNewRoom(room.addingId())
@@ -129,7 +128,6 @@ extension RoomUser {
         }
     }
 }
-
 
 fileprivate extension String {
     func skipLine(_ text: String) -> String {

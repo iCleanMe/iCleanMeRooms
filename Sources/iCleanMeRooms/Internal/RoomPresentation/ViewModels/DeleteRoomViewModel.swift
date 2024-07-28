@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import iCleanMeRoomsCore
 
-public final class DeleteRoomViewModel: ObservableObject {
+final class DeleteRoomViewModel: ObservableObject {
     private let room: Room
     private let datasource: RoomDataSource
     private let deleteRoom: (Room) async throws -> Void
     
-    public init(room: Room, datasource: RoomDataSource, deleteRoom: @escaping (Room) async throws -> Void) {
+    init(room: Room, datasource: RoomDataSource, deleteRoom: @escaping (Room) async throws -> Void) {
         self.room = room
         self.datasource = datasource
         self.deleteRoom = deleteRoom
@@ -22,7 +21,7 @@ public final class DeleteRoomViewModel: ObservableObject {
 
 
 // MARK: - DisplayData
-public extension DeleteRoomViewModel {
+extension DeleteRoomViewModel {
     var taskList: [RoomTask] {
         return room.tasks
     }
@@ -42,7 +41,7 @@ public extension DeleteRoomViewModel {
 
 
 // MARK: - Actions
-public extension DeleteRoomViewModel {
+extension DeleteRoomViewModel {
     func deleteRoom() async throws {
         try await deleteRoom(room)
     }

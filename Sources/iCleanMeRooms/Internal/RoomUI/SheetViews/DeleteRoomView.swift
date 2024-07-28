@@ -7,16 +7,11 @@
 
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
-public struct DeleteRoomView: View {    
+struct DeleteRoomView: View {
     @StateObject var viewModel: DeleteRoomViewModel
     
-    public init(viewModel: DeleteRoomViewModel) {
-        self._viewModel = .init(wrappedValue: viewModel)
-    }
-    
-    public var body: some View {
+    var body: some View {
         VStack {
             if viewModel.canDelete {
                 Text("Are you sure you sure?")

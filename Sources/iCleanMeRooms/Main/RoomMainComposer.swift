@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RoomPresentation
 
 final class RoomMainComposer: ObservableObject {
     private let datasource: RoomDataSource

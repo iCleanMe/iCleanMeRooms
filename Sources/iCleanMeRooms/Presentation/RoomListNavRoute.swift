@@ -5,8 +5,6 @@
 //  Created by Nikolai Nobadi on 7/12/24.
 //
 
-import RoomPresentation
-
 enum RoomListNavRoute: Identifiable {
     case delete(Room)
     case detail(RoomToModify)

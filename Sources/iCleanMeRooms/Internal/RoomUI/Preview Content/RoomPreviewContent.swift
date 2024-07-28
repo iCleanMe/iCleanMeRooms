@@ -6,19 +6,18 @@
 //
 
 import iCleanMeSharedUI
-import RoomPresentation
 
-public extension RoomUser {
+extension RoomUser {
     static func previewUser(type: RoomUserType = .normal, hasEditPermission: Bool = true) -> RoomUser {
         return .init(type: type, hasEditPermission: hasEditPermission)
     }
 }
-public extension Room {
+extension Room {
     static var sample: Room {
         return .init(id: "0", name: "kitchen", isPersonal: false, tasks: RoomTask.sampleList)
     }
 }
-public extension RoomTask {
+extension RoomTask {
     static var sampleList: [RoomTask] {
         return [
             .init(id: "0", name: "Clean Stove", isClean: false, hasReminder: false),
@@ -26,7 +25,7 @@ public extension RoomTask {
         ]
     }
 }
-public extension RoomSection {
+extension RoomSection {
     var gradient: GradientType {
         return isPersonal ? .sunset : .seaNight
     }
@@ -38,12 +37,12 @@ public extension RoomSection {
         ]
     }
 }
-public extension RoomDataSource {
+extension RoomDataSource {
     static func previewInit(user: RoomUser = .previewUser(), sections: [RoomSection] = RoomSection.sampleList) -> RoomDataSource {
         return .init(user: user, sections: sections)
     }
 }
-public extension DeleteRoomViewModel {
+extension DeleteRoomViewModel {
     static func previewInit(room: Room = .sample, canDelete: Bool = true) -> DeleteRoomViewModel {
         return .init(room: room, datasource: .previewInit(user: .previewUser(hasEditPermission: canDelete)), deleteRoom: { _ in })
     }

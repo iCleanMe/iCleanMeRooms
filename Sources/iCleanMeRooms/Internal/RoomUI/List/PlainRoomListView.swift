@@ -7,18 +7,17 @@
 
 import SwiftUI
 import iCleanMeSharedUI
-import RoomPresentation
 
-public struct PlainRoomListView<Content: View>: View {
+struct PlainRoomListView<Content: View>: View {
     let leadingInsetPercent: CGFloat
     let content: () -> Content
     
-    public init(leadingInsetPercent: CGFloat = 2, @ViewBuilder content: @escaping () -> Content) {
+    init(leadingInsetPercent: CGFloat = 2, @ViewBuilder content: @escaping () -> Content) {
         self.leadingInsetPercent = leadingInsetPercent
         self.content = content
     }
     
-    public var body: some View {
+    var body: some View {
         List {
             content()
                 .listRowSeparator(.hidden)

@@ -7,7 +7,7 @@
 
 import XCTest
 import NnTestHelpers
-@testable import RoomPresentation
+@testable import iCleanMeRooms
 
 final class DeleteRoomViewModelTests: XCTestCase {
     func test_starting_values_are_empty() {

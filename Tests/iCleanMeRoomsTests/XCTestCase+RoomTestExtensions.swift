@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import iCleanMeRoomsCore
+@testable import iCleanMeRooms
 
 extension XCTestCase {
     func makeRoom(id: String = "0", name: String = "Kitchen", isPersonal: Bool = false, tasks: [RoomTask] = []) -> Room {

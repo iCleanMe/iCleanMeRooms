@@ -6,15 +6,14 @@
 //
 
 import Foundation
-import iCleanMeRoomsCore
 
-public final class ReorderRoomListViewModel: ObservableObject {
-    @Published public var roomList: [Room]
+final class ReorderRoomListViewModel: ObservableObject {
+    @Published var roomList: [Room]
     
     private let isPersonal: Bool
     private let saveNewOrder: (RoomSection) async throws -> Void
     
-    public init(section: RoomSection, saveNewOrder: @escaping (RoomSection) async throws -> Void) {
+    init(section: RoomSection, saveNewOrder: @escaping (RoomSection) async throws -> Void) {
         self.roomList = section.rooms
         self.isPersonal = section.isPersonal
         self.saveNewOrder = saveNewOrder
@@ -23,7 +22,7 @@ public final class ReorderRoomListViewModel: ObservableObject {
 
 
 // MARK: - Actions
-public extension ReorderRoomListViewModel {
+extension ReorderRoomListViewModel {
     func saveChanges() async throws {
         try await saveNewOrder(.init(id: "", name: "", rooms: roomList, isPersonal: isPersonal))
     }

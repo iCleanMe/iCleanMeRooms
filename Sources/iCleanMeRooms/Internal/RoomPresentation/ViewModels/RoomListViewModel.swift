@@ -6,17 +6,16 @@
 //
 
 import Foundation
-import iCleanMeRoomsCore
 
-public final class RoomListViewModel: ObservableObject {
+final class RoomListViewModel: ObservableObject {
     @Published var user: RoomUser
     @Published var allTasks: [RoomTask] = []
-    @Published public var sections: [RoomSection] = []
+    @Published var sections: [RoomSection] = []
     
     private let datasource: RoomDataSource
     private let navHandler: RoomListNavHandler
     
-    public init(datasource: RoomDataSource, navHandler: RoomListNavHandler) {
+    init(datasource: RoomDataSource, navHandler: RoomListNavHandler) {
         self.datasource = datasource
         self.navHandler = navHandler
         self.user = datasource.user
@@ -33,7 +32,7 @@ public final class RoomListViewModel: ObservableObject {
 
 
 // MARK: - DisplayData
-public extension RoomListViewModel {
+extension RoomListViewModel {
     var isPro: Bool {
         return user.type == .pro
     }
@@ -51,30 +50,30 @@ public extension RoomListViewModel {
 
 // MARK: - NavHandler
 extension RoomListViewModel: RoomListNavHandler {
-    public func showEditRoom(_ room: Room) {
+    func showEditRoom(_ room: Room) {
         navHandler.showEditRoom(room)
     }
     
-    public func showDeleteRoom(_ room: Room) {
+    func showDeleteRoom(_ room: Room) {
         navHandler.showDeleteRoom(room)
     }
     
-    public func showTasks(for room: Room) {
+    func showTasks(for room: Room) {
         navHandler.showTasks(for: room)
     }
     
-    public func showAddRoom(isPersonal: Bool) {
+    func showAddRoom(isPersonal: Bool) {
         navHandler.showAddRoom(isPersonal: isPersonal)
     }
     
-    public func showReorderRooms(section: RoomSection) {
+    func showReorderRooms(section: RoomSection) {
         navHandler.showReorderRooms(section: section)
     }
 }
 
 
 // MARK: - Actions
-public extension RoomListViewModel {
+extension RoomListViewModel {
     func showAllTasks(for room: Room) {
         navHandler.showTasks(for: room)
     }
