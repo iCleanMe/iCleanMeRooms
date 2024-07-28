@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "B03C743E-033A-49CF-8932-3A75E5ECB9F8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "iCleanMeRooms",
+          "name" : "iCleanMeRooms"
+        }
+      ]
+    },
+    "testExecutionOrdering" : "random",
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "iCleanMeRoomsTests",
+        "name" : "iCleanMeRoomsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
