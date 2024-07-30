@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iCleanMeSharedUI
+import iCleanMeRoomsAccessibility
 
 struct RoomDetailView: View {
     @FocusState private var fieldIsFocused: Bool
@@ -27,9 +28,11 @@ struct RoomDetailView: View {
                 TextField("enter room name...", text: $viewModel.room.name)
                     .focused($fieldIsFocused)
                     .textFieldStyle(.cleanFieldStyle())
+                    .setRoomDetailIdAccessId(.roomNameField)
                 
                 AsyncTryButton("Save", action: viewModel.saveRoom)
                     .buttonStyle(.cleanButtonStyle())
+                    .setRoomDetailIdAccessId(.saveButton)
             }
             .onlyShow(when: viewModel.canAddRoom)
         }

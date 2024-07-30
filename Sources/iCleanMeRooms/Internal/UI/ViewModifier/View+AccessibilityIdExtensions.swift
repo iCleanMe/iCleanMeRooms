@@ -14,3 +14,11 @@ extension View {
         accessibilityIdentifier(id.rawValue)
     }
 }
+
+
+// MARK: - RoomDetail
+extension View {
+    func setRoomDetailIdAccessId(_ id: RoomDetailAccessibilityId) -> some View {
+        accessibilityIdentifier(id.rawValue)
+    }
+}
