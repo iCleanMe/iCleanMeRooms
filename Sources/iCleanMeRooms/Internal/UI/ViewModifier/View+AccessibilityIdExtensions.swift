@@ -30,3 +30,11 @@ extension View {
         accessibilityIdentifier(id.rawValue)
     }
 }
+
+
+// MARK: - ReorderRoom
+extension View {
+    func setReorderRoomIdAccessId(_ id: ReorderRoomAccessibilityId) -> some View {
+        accessibilityIdentifier(id.rawValue)
+    }
+}

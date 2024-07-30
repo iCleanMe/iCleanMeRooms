@@ -32,9 +32,11 @@ struct ReorderRoomListView: View {
             .listStyle(.insetGrouped)
             #endif
             .scrollContentBackground(.hidden)
+            .setReorderRoomIdAccessId(.roomList)
             
             AsyncTryButton("Save Changes", action: viewModel.saveChanges)
                 .buttonStyle(.cleanButtonStyle())
+                .setReorderRoomIdAccessId(.saveButton)
         }
         .padding()
         .mainBackground()
