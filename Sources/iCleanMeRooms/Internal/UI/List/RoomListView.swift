@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iCleanMeSharedUI
+import iCleanMeRoomsAccessibility
 
 struct RoomListView: View {
     @StateObject var viewModel: RoomListViewModel
@@ -36,12 +37,14 @@ struct RoomListView: View {
                 }
                 .padding()
                 .buttonStyle(.cleanButtonStyle())
+                .setRoomListIdAccessId(.emptyListAddHouseRoomButton)
                 
                 Button("Add personal room") {
                     viewModel.showAddRoom(isPersonal: true)
                 }
                 .padding()
                 .buttonStyle(.cleanButtonStyle(gradientType: .sunset))
+                .setRoomListIdAccessId(.emptyListAddPersonalRoomButton)
                 .onlyShow(when: viewModel.isPro)
             }
             .padding()
@@ -104,6 +107,7 @@ fileprivate struct SectionButtons: View {
             .tint(.gray)
             .foregroundStyle(.black)
             .buttonStyle(.bordered)
+            .setRoomListIdAccessId(section.reorderAccessId)
             
             Spacer()
             
@@ -112,6 +116,7 @@ fileprivate struct SectionButtons: View {
             }
             .buttonStyle(.bordered)
             .tint(section.isPersonal ? .cleanRed : .blue)
+            .setRoomListIdAccessId(section.addRoomAccessId)
             
             Spacer()
         }
@@ -125,4 +130,16 @@ fileprivate struct SectionButtons: View {
         RoomListView(viewModel: .init(datasource: .previewInit(), navHandler: PreviewRoomListNavHandler()))
     }
     .withPreviewModifiers()
+}
+
+
+// MARK: - Extension Dependencies
+fileprivate extension RoomSection {
+    var reorderAccessId: RoomListAccessibilityId {
+        return isPersonal ? .personalReorderButton : .houseReorderButton
+    }
+    
+    var addRoomAccessId: RoomListAccessibilityId {
+        return isPersonal ? .personalSectionAddRoomButton : .houseSectionAddRoomButton
+    }
 }

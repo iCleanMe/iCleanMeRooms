@@ -6,12 +6,17 @@ import PackageDescription
 let package = Package(
     name: "iCleanMeRooms",
     platforms: [
-        .iOS(.v17), .macOS(.v14)
+        .iOS(.v17),
+        .macOS(.v14)
     ],
     products: [
         .library(
             name: "iCleanMeRooms",
             targets: ["iCleanMeRooms"]
+        ),
+        .library(
+            name: "iCleanMeRoomsAccessibility",
+            targets: ["iCleanMeRoomsAccessibility"]
         )
     ],
     dependencies: [
@@ -22,8 +27,12 @@ let package = Package(
         .target(
             name: "iCleanMeRooms",
             dependencies: [
-                "iCleanMeSharedUI"
+                "iCleanMeSharedUI",
+                "iCleanMeRoomsAccessibility"
             ]
+        ),
+        .target(
+            name: "iCleanMeRoomsAccessibility"
         ),
         .testTarget(
             name: "iCleanMeRoomsTests",
