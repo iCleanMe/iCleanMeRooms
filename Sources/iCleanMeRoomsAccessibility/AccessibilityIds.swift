@@ -21,3 +21,12 @@ public enum RoomDetailAccessibilityId: String {
     case roomNameField
     case saveButton = "roomDetailSaveButton"
 }
+
+
+// MARK: - DeleteRoom
+public enum DeleteRoomAccessibilityId: String {
+    case noTasksLabel = "deleteRoomNoTasksLabel"
+    case missingPermissionsLabel = "deleteRoomMissingPermissionsLabel"
+    case roomTaskList = "deleteRoomTaskList"
+    case deleteButton = "deleteRoomDeleteButton"
+}

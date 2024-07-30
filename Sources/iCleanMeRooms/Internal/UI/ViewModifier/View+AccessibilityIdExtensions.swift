@@ -22,3 +22,11 @@ extension View {
         accessibilityIdentifier(id.rawValue)
     }
 }
+
+
+// MARK: - DeleteRoom
+extension View {
+    func setDeleteRoomIdAccessId(_ id: DeleteRoomAccessibilityId) -> some View {
+        accessibilityIdentifier(id.rawValue)
+    }
+}

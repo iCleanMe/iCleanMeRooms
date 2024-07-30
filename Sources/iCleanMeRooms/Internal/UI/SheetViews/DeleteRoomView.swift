@@ -7,6 +7,7 @@
 
 import SwiftUI
 import iCleanMeSharedUI
+import iCleanMeRoomsAccessibility
 
 struct DeleteRoomView: View {
     @StateObject var viewModel: DeleteRoomViewModel
@@ -25,6 +26,7 @@ struct DeleteRoomView: View {
                         .padding()
                         .withFont(.headline, isDetail: true)
                         .multilineTextAlignment(.center)
+                        .setDeleteRoomIdAccessId(.noTasksLabel)
                     Spacer()
                 } else {
                     VStack(spacing: 0) {
@@ -37,17 +39,20 @@ struct DeleteRoomView: View {
                                 .withFont(.caption, isDetail: true)
                         }
                         .scrollContentBackground(.hidden)
+                        .setDeleteRoomIdAccessId(.roomTaskList)
                     }
                 }
                 
                 AsyncTryButton(viewModel.deleteButtonText, action: viewModel.deleteRoom)
                     .padding()
                     .buttonStyle(.cleanButtonStyle(gradientType: .sunset))
+                    .setDeleteRoomIdAccessId(.deleteButton)
             } else {
                 Text(viewModel.noPermissionText)
                     .withFont(isDetail: true)
                     .multilineTextAlignment(.center)
                     .padding()
+                    .setDeleteRoomIdAccessId(.missingPermissionsLabel)
             }
         }
         .mainBackground()
