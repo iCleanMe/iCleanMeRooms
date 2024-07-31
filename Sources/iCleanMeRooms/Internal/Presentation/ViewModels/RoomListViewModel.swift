@@ -9,7 +9,8 @@ import Foundation
 
 final class RoomListViewModel: ObservableObject {
     @Published var user: RoomUser
-    @Published var allTasks: [RoomTask] = []
+    @Published var houseTasks: [RoomTask] = []
+    @Published var personalTasks: [RoomTask] = []
     @Published var houseSection: RoomSection
     @Published var personalSection: RoomSection
     @Published var selectedSection: RoomSectionType = .house 
@@ -44,6 +45,8 @@ extension RoomListViewModel {
     }
     
     var topSectionRooms: [Room] {
+        let allTasks = houseTasks + personalTasks
+        
         return [
             .init(id: .allRoomId, name: "All Tasks", tasks: allTasks),
             .init(id: .taskReminderRoomId, name: "Task Reminders", tasks: allTasks.filter({ $0.hasReminder }))
@@ -98,16 +101,9 @@ private extension RoomListViewModel {
     func startObservers() {
         datasource.$user.assign(to: &$user)
         datasource.$houseSection.assign(to: &$houseSection)
-        datasource.$personalSection.assign(to: &$houseSection)
-        $houseSection
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .map { $0.allTasks }
-            .combineLatest($personalSection.map({ $0.allTasks }))
-            .map { houseTasks, personalTasks in
-                return houseTasks + personalTasks
-            }
-            .receive(on: DispatchQueue.main)
-            .assign(to: &$allTasks)
+        datasource.$personalSection.assign(to: &$personalSection)
+        $houseSection.map({ $0.allTasks }).assign(to: &$houseTasks)
+        $personalSection.map({ $0.allTasks }).assign(to: &$personalTasks)
     }
 }
 
