@@ -49,6 +49,6 @@ struct ReorderRoomListView: View {
 
 // MARK: - Preview
 #Preview {
-    ReorderRoomListView(viewModel: .init(section: RoomSection.sampleList[0], saveNewOrder: { _ in }))
+    ReorderRoomListView(viewModel: .init(section: .sampleHouseSection, saveNewOrder: { _ in }))
         .withPreviewModifiers()
 }

@@ -51,6 +51,6 @@ public struct RoomMainView: View {
         func saveNewOrder(_ rooms: [Room], isPersonal: Bool) async throws { }
     }
     
-    return RoomMainView(datasource: .init(user: .previewUser(), sections: RoomSection.sampleList), delegate: PreviewEventHandler(), showTaskList: { _ in })
+    return RoomMainView(datasource: .previewInit(), delegate: PreviewEventHandler(), showTaskList: { _ in })
         .withPreviewModifiers()
 }

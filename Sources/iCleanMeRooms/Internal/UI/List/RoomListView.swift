@@ -24,54 +24,52 @@ struct RoomListView: View {
             .padding(.top)
             .frame(maxHeight: getHeightPercent(18))
             
+            SectionPicker(selection: $viewModel.selectedSection)
             PlainRoomListView(leadingInsetPercent: 1) {
-                ForEach(viewModel.sections) { section in
-                    RoomListSection(section: section, navHandler: viewModel)
-                }
+                RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
+            }
+            .showingConditionalView(isShowing: true) {
+                NonProPersonalRoomsListView()
             }
         }
         .withEmptyListView(listEmpty: viewModel.noRooms, listType: .rooms) {
-            VStack {
-                Button("Add house room") {
-                    viewModel.showAddRoom(isPersonal: false)
-                }
-                .padding()
-                .buttonStyle(.cleanButtonStyle())
-                .setRoomListIdAccessId(.emptyListAddHouseRoomButton)
-                
-                Button("Add personal room") {
-                    viewModel.showAddRoom(isPersonal: true)
-                }
-                .padding()
-                .buttonStyle(.cleanButtonStyle(gradientType: .sunset))
-                .setRoomListIdAccessId(.emptyListAddPersonalRoomButton)
-                .onlyShow(when: viewModel.isPro)
-            }
-            .padding()
+            EmptyListButtonView(
+                isPro: viewModel.isPro,
+                addHouseRoom: { viewModel.showAddRoom(isPersonal: false) },
+                addPersonalRoom: { viewModel.showAddRoom(isPersonal: true) }
+            )
         }
         .mainBackground()
     }
 }
 
 
+// MARK: - SectionPicker
+fileprivate struct SectionPicker: View {
+    @Binding var selection: RoomSectionType
+    
+    var body: some View {
+        Picker("", selection: $selection) {
+            ForEach(RoomSectionType.allCases, id: \.self) { section in
+                Text(section.title)
+            }
+        }
+        .padding(5)
+        .withGradientBackground(selection.gradient)
+        .pickerStyle(.segmented)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal)
+    }
+}
+
+
 // MARK: - Section
 fileprivate struct RoomListSection: View {
-    @State private var isExpanded: Bool
-    
     let section: RoomSection
     let navHandler: RoomListNavHandler
     
-    init(section: RoomSection, navHandler: RoomListNavHandler) {
-        self.section = section
-        self.navHandler = navHandler
-        self._isExpanded = .init(wrappedValue: section.gradient == .seaNight ? true : false)
-    }
-    
     var body: some View {
-        DisclosureGroup(isExpanded: $isExpanded) {
-            SectionButtons(section: section, navHandler: navHandler)
-                .padding([.bottom, .horizontal])
-            
+        Section {
             ForEach(section.rooms) { room in
                 SharedRoomRowView(room: room, gradientType: section.gradient) {
                     navHandler.showTasks(for: room)
@@ -83,12 +81,10 @@ fileprivate struct RoomListSection: View {
                     navHandler.showDeleteRoom(room)
                 }
             }
-        } label: {
-            Text(section.name)
-                .padding(.leading)
-                .withFont(.caption)
+        } header: {
+            SectionButtons(section: section, navHandler: navHandler)
+                .padding([.bottom, .horizontal])
         }
-        .tint(.white)
     }
 }
 
@@ -123,6 +119,29 @@ fileprivate struct SectionButtons: View {
     }
 }
 
+
+// MARK: - EmptyListButtons
+fileprivate struct EmptyListButtonView: View {
+    let isPro: Bool
+    let addHouseRoom: () -> Void
+    let addPersonalRoom: () -> Void
+    
+    var body: some View {
+        VStack {
+            Button("Add house room", action: addHouseRoom)          
+                .padding()
+                .buttonStyle(.cleanButtonStyle())
+                .setRoomListIdAccessId(.emptyListAddHouseRoomButton)
+            
+            Button("Add personal room", action: addPersonalRoom)
+                .padding()
+                .buttonStyle(.cleanButtonStyle(gradientType: .sunset))
+                .setRoomListIdAccessId(.emptyListAddPersonalRoomButton)
+                .onlyShow(when: isPro)
+        }
+        .padding()
+    }
+}
 
 // MARK: - Preview
 #Preview {

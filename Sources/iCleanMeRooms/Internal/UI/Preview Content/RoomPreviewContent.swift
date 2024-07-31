@@ -26,20 +26,17 @@ extension RoomTask {
     }
 }
 extension RoomSection {
-    var gradient: GradientType {
-        return isPersonal ? .sunset : .seaNight
+    static var sampleHouseSection: RoomSection {
+        .init(type: .house, rooms: Room.houseList)
     }
     
-    static var sampleList: [RoomSection] {
-        return [
-            .init(id: "house", name: "House Rooms", rooms: Room.houseList),
-            .init(id: "personal", name: "Personal Rooms", rooms: Room.personalList, isPersonal: true)
-        ]
+    static var samplePersonalSection: RoomSection {
+        .init(type: .house, rooms: Room.personalList)
     }
 }
 extension RoomDataSource {
-    static func previewInit(user: RoomUser = .previewUser(), sections: [RoomSection] = RoomSection.sampleList) -> RoomDataSource {
-        return .init(user: user, sections: sections)
+    static func previewInit(user: RoomUser = .previewUser(), houseSection: RoomSection = .sampleHouseSection, personalSection: RoomSection = .samplePersonalSection) -> RoomDataSource {
+        return .init(user: user, houseSection: houseSection, personalSection: personalSection )
     }
 }
 extension DeleteRoomViewModel {

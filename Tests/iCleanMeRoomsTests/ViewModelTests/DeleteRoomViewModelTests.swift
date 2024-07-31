@@ -39,9 +39,9 @@ final class DeleteRoomViewModelTests: XCTestCase {
 
 // MARK: - SUT
 extension DeleteRoomViewModelTests {
-    func makeSUT(room: Room? = nil, user: RoomUser? = nil, sections: [RoomSection] = [], throwError: Bool = false, file: StaticString = #filePath, line: UInt = #line) -> (sut: DeleteRoomViewModel, delegate: MockDelegate) {
+    func makeSUT(room: Room? = nil, user: RoomUser? = nil, houseSection: RoomSection = .sampleHouseSection, personalSection: RoomSection = .samplePersonalSection, throwError: Bool = false, file: StaticString = #filePath, line: UInt = #line) -> (sut: DeleteRoomViewModel, delegate: MockDelegate) {
         let delegate = MockDelegate(throwError: throwError)
-        let datasource = RoomDataSource(user: user ?? makeRoomUser(), sections: sections)
+        let datasource = RoomDataSource(user: user ?? makeRoomUser(), houseSection: houseSection, personalSection: personalSection)
         let sut = DeleteRoomViewModel(room: room ?? makeRoom(), datasource: datasource, deleteRoom: delegate.deleteRoom(_:))
         
         trackForMemoryLeaks(sut, file: file, line: line)

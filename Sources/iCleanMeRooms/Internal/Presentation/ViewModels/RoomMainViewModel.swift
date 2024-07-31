@@ -98,7 +98,3 @@ public protocol RoomDelegate {
     func deleteRoom(_ room: Room) async throws
     func saveNewOrder(_ rooms: [Room], isPersonal: Bool) async throws
 }
-
-
-// MARK: - Extension Dependencies
-

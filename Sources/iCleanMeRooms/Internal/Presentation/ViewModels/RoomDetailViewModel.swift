@@ -76,9 +76,11 @@ private extension RoomDetailViewModel {
     var user: RoomUser {
         return datasource.user
     }
+    
     var currentRoomCount: Int {
-        return datasource.sections.flatMap({ $0.rooms }).count
+        return datasource.houseSection.rooms.count
     }
+    
     var houseRoomMessage: String {
         guard canAddRoom else {
             let prefix = "In order to add more rooms,"
@@ -90,6 +92,7 @@ private extension RoomDetailViewModel {
         
         return "This \(isNewRoom ? "will be" : "is") a HOUSEHOLD Room. It \(isNewRoom ? "will be" : "is") available to EVERYONE in your household."
     }
+    
     var personalRoomMessage: String {
         return "This \(isNewRoom ? "will be" : "is") a PERSONAL Room. It \(isNewRoom ? "will NOT be" : "is NOT") available to anyone but you."
             .skipLine("\(isNewRoom ? "If you would like this room to be shared with your household, tap the 'X' in the top right corner, then tap the Household section of the selector at the top of the Room List View, THEN tap the '+' button to add a House Room." : "")")
