@@ -28,7 +28,7 @@ struct RoomListView: View {
             PlainRoomListView(leadingInsetPercent: 1) {
                 RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
             }
-            .showingConditionalView(isShowing: true) {
+            .showingConditionalView(isShowing: viewModel.showNonProPersonalList) {
                 NonProPersonalRoomsListView()
             }
         }

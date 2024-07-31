@@ -12,7 +12,7 @@ final class RoomListViewModel: ObservableObject {
     @Published var allTasks: [RoomTask] = []
     @Published var houseSection: RoomSection
     @Published var personalSection: RoomSection
-    @Published var selectedSection: RoomSectionType = .personal // TODO: - 
+    @Published var selectedSection: RoomSectionType = .house 
     
     private let datasource: RoomDataSource
     private let navHandler: RoomListNavHandler
@@ -33,6 +33,10 @@ final class RoomListViewModel: ObservableObject {
 extension RoomListViewModel {
     var isPro: Bool {
         return user.type == .pro
+    }
+    
+    var showNonProPersonalList: Bool {
+        return selectedSection == .personal && !isPro
     }
     
     var noRooms: Bool {
