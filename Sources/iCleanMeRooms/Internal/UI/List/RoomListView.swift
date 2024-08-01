@@ -73,8 +73,7 @@ fileprivate struct RoomListSection: View {
             ForEach(section.rooms) { room in
                 SharedRoomRowView(room: room, gradientType: section.gradient) {
                     navHandler.showTasks(for: room)
-                }
-                .withSwipeAction("Edit", tint: .gray, edge: .leading) {
+                } showRoomDetails: {
                     navHandler.showEditRoom(room)
                 }
                 .withSwipeAction("Delete", image: "trash", tint: .red) {

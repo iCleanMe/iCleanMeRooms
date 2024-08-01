@@ -12,19 +12,29 @@ struct SharedRoomRowView: View {
     let room: Room
     let gradientType: GradientType
     let onSelection: () -> Void
+    let showRoomDetails: (() -> Void)?
     
     private var imageSize: CGFloat {
         return getHeightPercent(5.25)
     }
     
-    init(room: Room, gradientType: GradientType = .seaNight, onSelection: @escaping () -> Void) {
+    init(room: Room, gradientType: GradientType = .seaNight, onSelection: @escaping () -> Void, showRoomDetails: (() -> Void)? = nil) {
         self.room = room
         self.gradientType = gradientType
         self.onSelection = onSelection
+        self.showRoomDetails = showRoomDetails
     }
     
     var body: some View {
         HStack {
+            if let showRoomDetails {
+                Button(action: showRoomDetails) {
+                    Image(systemName: "info.circle")
+                        .foregroundStyle(.white)
+                }
+                .buttonStyle(.plain)
+            }
+            
             Text(room.name)
                 .padding(2)
                 .withFont(textColor: .white, autoSizeLineLimit: 2)
