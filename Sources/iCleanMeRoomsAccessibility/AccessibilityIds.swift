@@ -7,6 +7,9 @@
 
 // MARK: - RoomList
 public enum RoomListAccessibilityId: String {
+    case topSectionList
+    case roomSectionList
+    case editRoomInfoButton
     case houseReorderButton
     case personalReorderButton
     case houseSectionAddRoomButton

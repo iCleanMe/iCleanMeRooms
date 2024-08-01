@@ -23,11 +23,13 @@ struct RoomListView: View {
             }
             .padding(.top)
             .frame(maxHeight: getHeightPercent(18))
+            .setRoomListIdAccessId(.topSectionList)
             
             SectionPicker(selection: $viewModel.selectedSection)
             PlainRoomListView(leadingInsetPercent: 1) {
                 RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
             }
+            .setRoomListIdAccessId(.roomSectionList)
             .showingConditionalView(isShowing: viewModel.showNonProPersonalList) {
                 NonProPersonalRoomsListView()
             }

@@ -33,6 +33,7 @@ struct SharedRoomRowView: View {
                         .foregroundStyle(.white)
                 }
                 .buttonStyle(.plain)
+                .setRoomListIdAccessId(.editRoomInfoButton)
             }
             
             Text(room.name)
