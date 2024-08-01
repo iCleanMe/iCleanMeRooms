@@ -108,7 +108,7 @@ public protocol RoomDetailDelegate {
 
 
 // MARK: - Extension Dependencies
-extension Room {
+fileprivate extension Room {
     func addingId() -> Room {
         guard id.isEmpty else {
             return self
@@ -119,7 +119,8 @@ extension Room {
         return updated
     }
 }
-extension RoomUser {
+
+fileprivate extension RoomUser {
     var roomLimit: Int? {
         switch type {
         case .pro:
