@@ -26,6 +26,7 @@ struct RoomListView: View {
             .setRoomListIdAccessId(.topSectionList)
             
             SectionPicker(selection: $viewModel.selectedSection)
+            
             PlainRoomListView(leadingInsetPercent: 1) {
                 RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
             }
@@ -78,7 +79,7 @@ fileprivate struct RoomListSection: View {
                 } showRoomDetails: {
                     navHandler.showEditRoom(room)
                 }
-                .withSwipeAction("Delete", image: "trash", tint: .red) {
+                .withSwipeAction(info: .init(prompt: "Delete"), systemImage: "trash", tint: .red) {
                     navHandler.showDeleteRoom(room)
                 }
             }
