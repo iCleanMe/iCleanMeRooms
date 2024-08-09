@@ -10,6 +10,7 @@ import iCleanMeSharedUI
 import iCleanMeRoomsAccessibility
 
 struct RoomListView: View {
+    @State private var showingAddButton = true
     @StateObject var viewModel: RoomListViewModel
     
     var body: some View {
@@ -30,11 +31,24 @@ struct RoomListView: View {
             PlainRoomListView(leadingInsetPercent: 1) {
                 RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
             }
+            .handlingVerticalPanGesture {
+                showingAddButton = $0 == .down
+            }
             .setRoomListIdAccessId(.roomSectionList)
             .showingConditionalView(isShowing: viewModel.showNonProPersonalList) {
                 NonProPersonalRoomsListView()
             }
+            .overlay(alignment: .bottom) {
+                if showingAddButton {
+                    AddButton {
+                        viewModel.showAddRoom(isPersonal: viewModel.selectedSection.isPersonal)
+                    }
+                    .transition(.move(edge: .bottom))
+                    .setRoomListIdAccessId(.addRoomButton)
+                }
+            }
         }
+        .animation(.default, value: showingAddButton)
         .withEmptyListView(listEmpty: viewModel.noRooms, listType: .rooms) {
             EmptyListButtonView(
                 isPro: viewModel.isPro,
@@ -84,39 +98,16 @@ fileprivate struct RoomListSection: View {
                 }
             }
         } header: {
-            SectionButtons(section: section, navHandler: navHandler)
-                .padding([.bottom, .horizontal])
-        }
-    }
-}
-
-
-// MARK: - SectionButtons
-fileprivate struct SectionButtons: View {
-    let section: RoomSection
-    let navHandler: RoomListNavHandler
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Button("Reorder rooms") {
-                navHandler.showReorderRooms(section: section)
+            HStack {
+                Spacer()
+                Button("Reorder rooms") {
+                    navHandler.showReorderRooms(section: section)
+                }
+                .tint(.gray)
+                .foregroundStyle(.black)
+                .buttonStyle(.bordered)
+                .setRoomListIdAccessId(.reorderButton)
             }
-            .tint(.gray)
-            .foregroundStyle(.black)
-            .buttonStyle(.bordered)
-            .setRoomListIdAccessId(section.reorderAccessId)
-            
-            Spacer()
-            
-            AddRoomButton(isPersonal: section.isPersonal) {
-                navHandler.showAddRoom(isPersonal: section.isPersonal)
-            }
-            .buttonStyle(.bordered)
-            .tint(section.isPersonal ? .cleanRed : .blue)
-            .setRoomListIdAccessId(section.addRoomAccessId)
-            
-            Spacer()
         }
     }
 }
@@ -154,13 +145,27 @@ fileprivate struct EmptyListButtonView: View {
 }
 
 
-// MARK: - Extension Dependencies
-fileprivate extension RoomSection {
-    var reorderAccessId: RoomListAccessibilityId {
-        return isPersonal ? .personalReorderButton : .houseReorderButton
+
+// TODO: - Move to SharedUI
+fileprivate struct AddButton: View {
+    let action: () throws -> Void
+    
+    private var buttonSize: CGFloat {
+        #if canImport(UIKit)
+        return getHeightPercent(isSmallPhone ? 8 : 6)
+        #else
+        return getHeightPercent(6)
+        #endif
     }
     
-    var addRoomAccessId: RoomListAccessibilityId {
-        return isPersonal ? .personalSectionAddRoomButton : .houseSectionAddRoomButton
+    var body: some View {
+        TryButton(action: action) {
+            Image(systemName: "plus")
+                .withFont(.title3, textColor: .white)
+        }
+        .frame(maxWidth: buttonSize, maxHeight: buttonSize)
+        .withGradientBackground(.seaNight)
+        .clipShape(Circle())
+        .shadow(color: .primary, radius: 7)
     }
 }
