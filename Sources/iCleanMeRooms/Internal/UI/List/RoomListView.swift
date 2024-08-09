@@ -10,7 +10,22 @@ import iCleanMeSharedUI
 import iCleanMeRoomsAccessibility
 
 struct RoomListView: View {
+    @State private var showingAddButton = true
     @StateObject var viewModel: RoomListViewModel
+    
+    func handleGesture(_ gesture: UIPanGestureRecognizer) {
+        let velocityY = gesture.velocity(in: gesture.view).y
+        
+        if velocityY < 0 {
+            if -(velocityY / 5) > 60 && showingAddButton {
+                showingAddButton = false
+            }
+        } else {
+            if (velocityY / 5) > 40 && !showingAddButton {
+                showingAddButton = true
+            }
+        }
+    }
     
     var body: some View {
         VStack {
@@ -30,11 +45,26 @@ struct RoomListView: View {
             PlainRoomListView(leadingInsetPercent: 1) {
                 RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
             }
+            .background(
+                CustomGesture {
+                    handleGesture($0)
+                }
+            )
             .setRoomListIdAccessId(.roomSectionList)
             .showingConditionalView(isShowing: viewModel.showNonProPersonalList) {
                 NonProPersonalRoomsListView()
             }
+            .overlay(alignment: .bottom) {
+                if showingAddButton {
+                    AddButton {
+                        viewModel.showAddRoom(isPersonal: viewModel.selectedSection.isPersonal)
+                    }
+                    .transition(.move(edge: .bottom))
+                    .setRoomListIdAccessId(.addRoomButton)
+                }
+            }
         }
+        .animation(.default, value: showingAddButton)
         .withEmptyListView(listEmpty: viewModel.noRooms, listType: .rooms) {
             EmptyListButtonView(
                 isPro: viewModel.isPro,
@@ -84,39 +114,16 @@ fileprivate struct RoomListSection: View {
                 }
             }
         } header: {
-            SectionButtons(section: section, navHandler: navHandler)
-                .padding([.bottom, .horizontal])
-        }
-    }
-}
-
-
-// MARK: - SectionButtons
-fileprivate struct SectionButtons: View {
-    let section: RoomSection
-    let navHandler: RoomListNavHandler
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            Button("Reorder rooms") {
-                navHandler.showReorderRooms(section: section)
+            HStack {
+                Spacer()
+                Button("Reorder rooms") {
+                    navHandler.showReorderRooms(section: section)
+                }
+                .tint(.gray)
+                .foregroundStyle(.black)
+                .buttonStyle(.bordered)
+                .setRoomListIdAccessId(.reorderButton)
             }
-            .tint(.gray)
-            .foregroundStyle(.black)
-            .buttonStyle(.bordered)
-            .setRoomListIdAccessId(section.reorderAccessId)
-            
-            Spacer()
-            
-            AddRoomButton(isPersonal: section.isPersonal) {
-                navHandler.showAddRoom(isPersonal: section.isPersonal)
-            }
-            .buttonStyle(.bordered)
-            .tint(section.isPersonal ? .cleanRed : .blue)
-            .setRoomListIdAccessId(section.addRoomAccessId)
-            
-            Spacer()
         }
     }
 }
@@ -154,13 +161,72 @@ fileprivate struct EmptyListButtonView: View {
 }
 
 
-// MARK: - Extension Dependencies
-fileprivate extension RoomSection {
-    var reorderAccessId: RoomListAccessibilityId {
-        return isPersonal ? .personalReorderButton : .houseReorderButton
+
+// TODO: - Move to SharedUI
+fileprivate struct AddButton: View {
+    let action: () throws -> Void
+    
+    private var buttonSize: CGFloat {
+        #if canImport(UIKit)
+        return getHeightPercent(isSmallPhone ? 8 : 6)
+        #else
+        return getHeightPercent(6)
+        #endif
     }
     
-    var addRoomAccessId: RoomListAccessibilityId {
-        return isPersonal ? .personalSectionAddRoomButton : .houseSectionAddRoomButton
+    var body: some View {
+        TryButton(action: action) {
+            Image(systemName: "plus")
+                .withFont(.title3, textColor: .white)
+        }
+        .frame(maxWidth: buttonSize, maxHeight: buttonSize)
+        .withGradientBackground(.seaNight)
+        .clipShape(Circle())
+        .shadow(color: .primary, radius: 7)
+    }
+}
+
+
+struct CustomGesture: UIViewRepresentable {
+    private let gestureId = UUID().uuidString
+    
+    var onChange: (UIPanGestureRecognizer) -> Void
+    
+    func makeCoordinator() -> Coordinator {
+        return .init(onChange: onChange)
+    }
+    
+    func makeUIView(context: Context) -> some UIView {
+        return .init()
+    }
+    
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        DispatchQueue.main.async {
+            if let superview = uiView.superview?.superview, !(superview.gestureRecognizers?.contains(where: { $0.name == gestureId }) ?? false) {
+                let gesture = UIPanGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.gestureChange(gesture:)))
+                
+                gesture.name = gestureId
+                gesture.delegate = context.coordinator
+                
+                superview.addGestureRecognizer(gesture)
+            }
+        }
+    }
+    
+    class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        var onChange: (UIPanGestureRecognizer) -> Void
+        
+        init(onChange: @escaping (UIPanGestureRecognizer) -> Void) {
+            self.onChange = onChange
+        }
+        
+        @objc
+        func gestureChange(gesture: UIPanGestureRecognizer) {
+            onChange(gesture)
+        }
+        
+        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            return true
+        }
     }
 }
