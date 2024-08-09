@@ -40,11 +40,11 @@ struct RoomListView: View {
             }
             .overlay(alignment: .bottom) {
                 if showingAddButton {
-                    AddButton {
+                    AddButton(accessibilityId: RoomListAccessibilityId.addRoomButton.rawValue) {
                         viewModel.showAddRoom(isPersonal: viewModel.selectedSection.isPersonal)
                     }
+                    .padding()
                     .transition(.move(edge: .bottom))
-                    .setRoomListIdAccessId(.addRoomButton)
                 }
             }
         }
@@ -148,6 +148,7 @@ fileprivate struct EmptyListButtonView: View {
 
 // TODO: - Move to SharedUI
 fileprivate struct AddButton: View {
+    let accessibilityId: String
     let action: () throws -> Void
     
     private var buttonSize: CGFloat {
@@ -163,6 +164,7 @@ fileprivate struct AddButton: View {
             Image(systemName: "plus")
                 .withFont(.title3, textColor: .white)
         }
+        .accessibilityIdentifier(accessibilityId)
         .frame(maxWidth: buttonSize, maxHeight: buttonSize)
         .withGradientBackground(.seaNight)
         .clipShape(Circle())
