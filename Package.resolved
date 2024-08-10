@@ -6,7 +6,7 @@
       "location" : "https://github.com/iCleanMe/iCleanMeSharedUI.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8dfe4c3636272c04aa232c5fbe61f4590487164c"
+        "revision" : "c4cde6eca8defba8a79bb90e447d0eb7e5d01a23"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nikolainobadi/NnSwiftUIKit",
       "state" : {
-        "branch" : "main",
-        "revision" : "5608750dcb3bfdee1708fbd95653b83bb935ae4a"
+        "revision" : "1a18f7240313013e6c1741d497680e217978c9b2",
+        "version" : "1.0.0"
       }
     },
     {

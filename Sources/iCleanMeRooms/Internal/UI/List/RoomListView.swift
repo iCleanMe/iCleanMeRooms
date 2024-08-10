@@ -40,7 +40,7 @@ struct RoomListView: View {
             }
             .overlay(alignment: .bottom) {
                 if showingAddButton {
-                    AddButton(accessibilityId: RoomListAccessibilityId.addRoomButton.rawValue) {
+                    CircleTryButton(accessibilityId: RoomListAccessibilityId.addRoomButton.rawValue) {
                         viewModel.showAddRoom(isPersonal: viewModel.selectedSection.isPersonal)
                     }
                     .padding()
@@ -75,7 +75,7 @@ fileprivate struct SectionPicker: View {
         .withGradientBackground(selection.gradient)
         .pickerStyle(.segmented)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .padding(.horizontal)
+        .padding(.horizontal, getWidthPercent(2.5))
     }
 }
 
@@ -142,32 +142,4 @@ fileprivate struct EmptyListButtonView: View {
         RoomListView(viewModel: .init(datasource: .previewInit(), navHandler: PreviewRoomListNavHandler()))
     }
     .withPreviewModifiers()
-}
-
-
-
-// TODO: - Move to SharedUI
-fileprivate struct AddButton: View {
-    let accessibilityId: String
-    let action: () throws -> Void
-    
-    private var buttonSize: CGFloat {
-        #if canImport(UIKit)
-        return getHeightPercent(isSmallPhone ? 8 : 6)
-        #else
-        return getHeightPercent(6)
-        #endif
-    }
-    
-    var body: some View {
-        TryButton(action: action) {
-            Image(systemName: "plus")
-                .withFont(.title3, textColor: .white)
-        }
-        .accessibilityIdentifier(accessibilityId)
-        .frame(maxWidth: buttonSize, maxHeight: buttonSize)
-        .withGradientBackground(.seaNight)
-        .clipShape(Circle())
-        .shadow(color: .primary, radius: 7)
-    }
 }
