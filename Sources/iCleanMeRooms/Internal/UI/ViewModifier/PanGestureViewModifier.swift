@@ -8,6 +8,7 @@
 import SwiftUI
 
 // TODO: - Move to NnSwiftUIKit
+#if canImport(UIKit)
 struct PanGestureViewModifier: ViewModifier {
     let handleSwipeDirection: (PanGestureSwipDirection) -> Void
     
@@ -33,10 +34,15 @@ struct PanGestureViewModifier: ViewModifier {
             )
     }
 }
+#endif
 
 public extension View {
     func handlingVerticalPanGesture(handleSwipeDirection: @escaping (PanGestureSwipDirection) -> Void) -> some View {
+        #if canImport(UIKit)
         modifier(PanGestureViewModifier(handleSwipeDirection: handleSwipeDirection))
+        #else
+        self
+        #endif
     }
 }
 
@@ -45,6 +51,7 @@ public enum PanGestureSwipDirection {
 }
 
 // MARK: - Gesture
+#if canImport(UIKit)
 fileprivate struct CustomGesture: UIViewRepresentable {
     private let gestureId = UUID().uuidString
     
@@ -88,3 +95,4 @@ fileprivate struct CustomGesture: UIViewRepresentable {
         }
     }
 }
+#endif

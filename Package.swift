@@ -20,7 +20,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/nikolainobadi/NnTestKit", branch: "main"),
+        .package(url: "https://github.com/nikolainobadi/NnTestKit", from: "1.0.0"),
         .package(url: "https://github.com/iCleanMe/iCleanMeSharedUI.git", branch: "main")
     ],
     targets: [
