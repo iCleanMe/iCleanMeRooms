@@ -31,7 +31,7 @@ struct RoomDetailView: View {
                     .setRoomDetailIdAccessId(.roomNameField)
                 
                 AsyncTryButton("Save", action: viewModel.saveRoom)
-                    .buttonStyle(.cleanButtonStyle())
+                    .buttonStyle(.cleanButtonStyle(disabled: !viewModel.canSave))
                     .setRoomDetailIdAccessId(.saveButton)
                     .disabled(!viewModel.canSave)
             }
