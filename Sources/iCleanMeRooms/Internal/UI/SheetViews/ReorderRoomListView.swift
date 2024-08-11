@@ -8,6 +8,7 @@
 import SwiftUI
 import iCleanMeSharedUI
 
+/// A view that allows users to reorder the list of rooms.
 struct ReorderRoomListView: View {
     #if canImport(UIKit)
     @State private var editing = EditMode.active

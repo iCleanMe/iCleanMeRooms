@@ -8,6 +8,7 @@
 import SwiftUI
 import iCleanMeSharedUI
 
+/// A plain list view for displaying rooms with customizable leading inset.
 struct PlainRoomListView<Content: View>: View {
     let leadingInsetPercent: CGFloat
     let content: () -> Content

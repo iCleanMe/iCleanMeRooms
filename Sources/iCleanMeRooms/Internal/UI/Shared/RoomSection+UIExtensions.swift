@@ -7,13 +7,16 @@
 
 import iCleanMeSharedUI
 
+/// Extensions to provide UI-related functionality for RoomSection.
 extension RoomSection {
+    /// Returns the gradient type associated with the room section type.
     var gradient: GradientType {
         return type.gradient
     }
 }
 
 extension RoomSectionType {
+    /// Returns the gradient type associated with the room section type.
     var gradient: GradientType {
         switch self {
         case .house:

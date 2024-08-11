@@ -9,6 +9,8 @@ import SwiftUI
 import iCleanMeSharedUI
 import iCleanMeRoomsAccessibility
 
+/// A view that allows users to add or edit room details.
+/// Includes a text field for entering the room name and a save button.
 struct RoomDetailView: View {
     @FocusState private var fieldIsFocused: Bool
     @StateObject var viewModel: RoomDetailViewModel

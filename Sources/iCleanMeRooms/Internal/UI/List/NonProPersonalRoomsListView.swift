@@ -8,6 +8,7 @@
 import SwiftUI
 import iCleanMeSharedUI
 
+/// A view that informs non-Pro users about restricted access to Personal rooms.
 struct NonProPersonalRoomsListView: View {
     var body: some View {
         VStack(spacing: getHeightPercent(5)) {

@@ -8,6 +8,7 @@
 import SwiftUI
 import iCleanMeSharedUI
 
+/// A row view representing a shared room, displaying its name and the number of dirty tasks.
 struct SharedRoomRowView: View {
     let room: Room
     let gradientType: GradientType

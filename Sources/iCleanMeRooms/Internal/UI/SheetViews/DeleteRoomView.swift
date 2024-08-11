@@ -9,6 +9,8 @@ import SwiftUI
 import iCleanMeSharedUI
 import iCleanMeRoomsAccessibility
 
+/// A view that allows the user to delete a room.
+/// Displays a list of tasks that will also be deleted if the room is deleted.
 struct DeleteRoomView: View {
     @StateObject var viewModel: DeleteRoomViewModel
     
@@ -58,7 +60,6 @@ struct DeleteRoomView: View {
         .mainBackground()
     }
 }
-
 
 // MARK: - Preview
 #Preview("Can Delete, no tasks") {
