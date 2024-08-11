@@ -40,7 +40,10 @@ struct RoomListView: View {
             }
             .overlay(alignment: .bottom) {
                 if showingAddButton {
-                    CircleTryButton(accessibilityId: RoomListAccessibilityId.addRoomButton.rawValue) {
+                    CircleTryButton(
+                        gradient: viewModel.sectionToDisplay.isPersonal ? .sunset : .seaNight,
+                        accessibilityId: RoomListAccessibilityId.addRoomButton.rawValue
+                    ) {
                         viewModel.showAddRoom(isPersonal: viewModel.selectedSection.isPersonal)
                     }
                     .padding()
