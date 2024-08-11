@@ -5,18 +5,19 @@
 //  Created by Nikolai Nobadi on 7/12/24.
 //
 
+/// An enumeration that defines the room to be modified (either new or existing).
 enum RoomToModify: Identifiable {
     case new(Room)
     case existing(Room)
-}
-
-
-// MARK: - Helpers
-extension RoomToModify {
+    
+    // MARK: - Helpers
+    
+    /// The ID of the room.
     var id: String {
         return room.id
     }
     
+    /// The navigation title based on the room type.
     var navTitle: String {
         switch self {
         case .new(let room):
@@ -26,6 +27,7 @@ extension RoomToModify {
         }
     }
     
+    /// The room instance.
     var room: Room {
         switch self {
         case .new(let room):

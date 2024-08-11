@@ -9,6 +9,8 @@ import SwiftUI
 import iCleanMeSharedUI
 import iCleanMeRoomsAccessibility
 
+/// A view that displays the list of rooms.
+/// Includes sections for house and personal rooms, and allows adding new rooms.
 struct RoomListView: View {
     @State private var showingAddButton = true
     @StateObject var viewModel: RoomListViewModel
@@ -31,9 +33,11 @@ struct RoomListView: View {
             PlainRoomListView(leadingInsetPercent: 1) {
                 RoomListSection(section: viewModel.sectionToDisplay, navHandler: viewModel)
             }
+            #if canImport(UIKit)
             .handlingVerticalPanGesture {
                 showingAddButton = $0 == .down
             }
+            #endif
             .setRoomListIdAccessId(.roomSectionList)
             .showingConditionalView(isShowing: viewModel.showNonProPersonalList) {
                 NonProPersonalRoomsListView()
