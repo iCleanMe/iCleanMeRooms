@@ -56,6 +56,10 @@ extension RoomDetailViewModel {
         
         return currentRoomCount < roomLimit
     }
+    
+    var canSave: Bool {
+        return !room.name.isEmpty
+    }
 }
 
 

@@ -33,6 +33,7 @@ struct RoomDetailView: View {
                 AsyncTryButton("Save", action: viewModel.saveRoom)
                     .buttonStyle(.cleanButtonStyle())
                     .setRoomDetailIdAccessId(.saveButton)
+                    .disabled(!viewModel.canSave)
             }
             .onlyShow(when: viewModel.canAddRoom)
         }
