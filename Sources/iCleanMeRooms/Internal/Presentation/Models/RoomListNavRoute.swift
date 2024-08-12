@@ -5,15 +5,18 @@
 //  Created by Nikolai Nobadi on 7/12/24.
 //
 
+/// Represents the different navigation routes within the room list feature.
 enum RoomListNavRoute: Identifiable {
+    /// Case for deleting a room.
     case delete(Room)
+    
+    /// Case for viewing or editing room details.
     case detail(RoomToModify)
+    
+    /// Case for reordering rooms within a section.
     case reorder(RoomSection)
-}
-
-
-// MARK: - Helpers
-extension RoomListNavRoute {
+    
+    /// Unique identifier for each navigation route.
     var id: String {
         switch self {
         case .delete:
@@ -25,6 +28,7 @@ extension RoomListNavRoute {
         }
     }
     
+    /// Title for the navigation bar based on the current route.
     var navTitle: String {
         switch self {
         case .delete:

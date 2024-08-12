@@ -17,6 +17,20 @@ extension Room {
     static var sample: Room {
         return .init(id: "0", name: "kitchen", isPersonal: false, tasks: RoomTask.sampleList)
     }
+    
+    static var houseList: [Room] {
+        return [
+            .init(id: "0", name: "Kitchen and everything else", tasks: []),
+            .init(id: "1", name: "Bathroom", tasks: [.init(id: "0", name: "Clean Toilet", isClean: false, hasReminder: true)]),
+            .init(id: "2", name: "Living Room", tasks: [.init(id: "1", name: "Vacuum Rug", isClean: false, hasReminder: false)])
+        ]
+    }
+    
+    static var personalList: [Room] {
+        return [
+            .init(id: "10", name: "My Room", tasks: []),
+        ]
+    }
 }
 
 extension RoomTask {
