@@ -21,7 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/nikolainobadi/NnTestKit", from: "1.0.0"),
-        .package(url: "https://github.com/iCleanMe/iCleanMeSharedUI.git", branch: "main")
+        .package(url: "https://github.com/iCleanMe/iCleanMeSharedUI.git", from: "1.0.0")
     ],
     targets: [
         .target(

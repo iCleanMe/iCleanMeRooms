@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/iCleanMe/iCleanMeSharedUI.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "741361a952cc9f9d589de66c73e134bb6136b32b"
+        "revision" : "04cbc47a867ef0374741fc28a5339ac8f41eb54e",
+        "version" : "1.0.0"
       }
     },
     {
